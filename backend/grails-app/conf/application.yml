@@ -1,0 +1,55 @@
+info:
+  app:
+    name: "@info.app.name@"
+    version: "@info.app.version@"
+    grailsVersion: "@info.app.grailsVersion@"
+properties:
+  llm:
+    uri: ${LLM_URI}
+    model: ${LLM_MODEL}
+    apiKey: ${LLM_API_KEY}
+    maximumThreadRequests: ${LLM_MAXIMUM_THREAD_REQUESTS}
+  borme:
+    uri: ${BORME_URI}
+  paths:
+    environment: ../.env
+environments:
+  development:
+    dataSource:
+      driverClassName: com.mysql.cj.jdbc.Driver
+      username: ${DATABASE_USER}
+      password: ${DATABASE_PASSWORD}
+      dbCreate: update
+      url: jdbc:mysql://localhost:3306/${DATABASE_NAME}
+      dialect: org.hibernate.dialect.MySQL8Dialect
+  test:
+    dataSource:
+      driverClassName: org.h2.Driver
+      username: sa
+      password: ""
+      dbCreate: create-drop
+      url: jdbc:h2:mem:testDb;LOCK_TIMEOUT=10000;DB_CLOSE_ON_EXIT=FALSE
+  production:
+    dataSource:
+      driverClassName: "Fill_production_database_driver"
+      username: "Fill_production_database_username"
+      password: "Fill_production_database_password"
+      dbCreate: "Fill_production_database_dbCreate"
+      url: "Fill_production_database_url"
+      dialect: "Fill_production_database_dialect"
+hibernate:
+  cache:
+    queries: false
+    use_second_level_cache: false
+    use_query_cache: false
+grails:
+  codegen:
+    defaultPackage: com.example
+  profile: rest-api
+  cors:
+    enabled: true
+    urlPattern: ${CORS_URL_PATTERN}
+    allowedOrigins: ${CORS_ALLOWED_ORIGINS}
+    allowedMethods: ${CORS_ALLOWED_METHODS}
+    allowedHeaders: ${CORS_ALLOWED_HEADERS}
+    allowCredentials: ${CORS_ALLOW_CREDENTIALS}

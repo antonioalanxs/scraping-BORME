@@ -1,0 +1,54 @@
+Return ONLY raw JSON.
+* Do NOT wrap the response in markdown.
+* Do NOT include `json` or any other language identifier.
+* Do NOT include explanations.
+* Do NOT include comments.
+* Do NOT include any text before or after the JSON.
+
+The JSON must contain EXACTLY these fields:
+'entity', 'start_of_operations', 'social_object', 'address', 'capital', 'single_person_declaration', 'sole_partner', 'appointment', 'registry'.
+
+Rules:
+* If a String field is unknown → "N / A"
+* If a Boolean field is unknown → false
+* If a Numeric field is unknown → 0
+* Dates must be formatted as YYYY-MM-DD
+* 'social_object' must be a short summary but will not lose information.
+
+Example:
+
+Text: 389826 - MEDITERRAMOVING SL.
+Constitución. Comienzo de operaciones: 9.07.25. Objeto social: Transporte de mercancías, mudanzas, almacenajes de
+mercancías. Guardamuebles, logística. Servicio de embalaje. Alquiler de vehículos con y sin conductor. Importación y
+exportación de mercancías. Todo tipo de actividades relacionadas con trabajos de albañilería, reformas y mantenimiento
+de comunidades. Domicilio: PTDA DE ALZABARES BAJO 46 (ELCHE). Capital: 3.000,00 Euros. Declaración de unipersonalidad.
+Socio único: VIDAL RICO RICARDO. Nombramientos. Adm. Unico: VIDAL RICO RICARDO. Datos registrales. S 8 , H A 199888,
+I/A 1 (25.08.25).
+
+Expected JSON output:
+
+{
+  "entity": {
+    "code": "389826",
+    "name": "MEDITERRAMOVING, S. L."
+  },
+  "start_of_operations": "2025-07-09",
+  "social_object": "Transporte, logística y almacenaje de mercancías, mudanzas, alquiler de vehículos, embalaje y trabajos de albañilería, reformas y mantenimiento.",
+  "address": "PTDA DE ALZABARES BAJO 46 (ELCHE)",
+  "capital": 3.000,
+  "single_person_declaration": true,
+  "sole_partner": "Vidal Rico, Ricardo",
+  "appointment": {
+    "sole_administrator": "Vidal Rico, Ricardo"
+  },
+  "registry": {
+    "section": "8",
+    "page": "199888",
+    "entry": "1",
+    "date": "2025-08-25"
+  }
+}
+
+Now extract the information from the REAL input text below.
+
+{{ text }}
